@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quant Forensics — Diagnostica tu backtest antes de que lo haga el mercado</title>
+<meta name="description" content="15 skills de Claude para traders algorítmicos. Detecta curve-fitting, look-ahead, edge decay y bugs en tu MQL. Herramientas de diagnóstico, no señales.">
+<meta name="robots" content="index, follow">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Quant Forensics — Tu backtest miente. Te lo demostramos.">
+<meta property="og:description" content="15 skills de Claude que diagnostican lo que MT4/MT5 y tu broker no te enseñan. Precio fundador 9,49€.">
+<meta property="og:image" content="{{OG_IMAGE_URL}}">
+
+<!-- Favicons -->
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#0D1320">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<header class="nav">
+  <div class="wrap nav__inner">
+    <a href="#top" class="brand">
+      <span class="brand__spark" aria-hidden="true">
+        <svg viewBox="0 0 100 100" fill="currentColor"><g>
+          <rect x="47.7" y="6" width="4.6" height="40" rx="2.3" transform="rotate(0 50 50)"/><rect x="47.7" y="12" width="4.6" height="30" rx="2.3" transform="rotate(30 50 50)"/><rect x="47.7" y="8" width="4.6" height="37" rx="2.3" transform="rotate(60 50 50)"/><rect x="47.7" y="11" width="4.6" height="32" rx="2.3" transform="rotate(90 50 50)"/><rect x="47.7" y="7" width="4.6" height="39" rx="2.3" transform="rotate(120 50 50)"/><rect x="47.7" y="13" width="4.6" height="28" rx="2.3" transform="rotate(150 50 50)"/><rect x="47.7" y="6" width="4.6" height="40" rx="2.3" transform="rotate(180 50 50)"/><rect x="47.7" y="12" width="4.6" height="30" rx="2.3" transform="rotate(210 50 50)"/><rect x="47.7" y="8" width="4.6" height="37" rx="2.3" transform="rotate(240 50 50)"/><rect x="47.7" y="11" width="4.6" height="32" rx="2.3" transform="rotate(270 50 50)"/><rect x="47.7" y="7" width="4.6" height="39" rx="2.3" transform="rotate(300 50 50)"/><rect x="47.7" y="13" width="4.6" height="28" rx="2.3" transform="rotate(330 50 50)"/>
+        </g></svg>
+      </span>
+      <span class="brand__name">Quant Forensics</span>
+    </a>
+    <a href="#oferta" class="btn btn--ghost btn--sm">Ver el pack →</a>
+  </div>
+</header>
+
+<a id="top"></a>
+
+<!-- ============ 1. HERO ============ -->
+<section class="hero">
+  <div class="wrap hero__grid">
+    <div class="hero__copy">
+      <div class="tag">
+        <span class="tag__pulse"></span> 15 skills de Claude · diagnóstico cuantitativo
+      </div>
+      <h1 class="hero__h1">
+        Tu backtest miente.<br>
+        <span class="accent">Te lo demostramos en 30 segundos.</span>
+      </h1>
+      <p class="hero__sub">
+        Herramientas que diagnostican lo que tu broker y MetaTrader nunca te enseñan:
+        curve-fitting, look-ahead, edge muerto y los bugs escondidos en tu MQL.
+        Pegas tu informe. Claude te dice si tienes un sistema o un espejismo.
+      </p>
+      <div class="opus-badge">
+        <span class="opus-badge__spark" aria-hidden="true">
+          <svg viewBox="0 0 100 100" fill="currentColor"><g>
+            <rect x="47.7" y="6" width="4.6" height="40" rx="2.3" transform="rotate(0 50 50)"/><rect x="47.7" y="12" width="4.6" height="30" rx="2.3" transform="rotate(30 50 50)"/><rect x="47.7" y="8" width="4.6" height="37" rx="2.3" transform="rotate(60 50 50)"/><rect x="47.7" y="11" width="4.6" height="32" rx="2.3" transform="rotate(90 50 50)"/><rect x="47.7" y="7" width="4.6" height="39" rx="2.3" transform="rotate(120 50 50)"/><rect x="47.7" y="13" width="4.6" height="28" rx="2.3" transform="rotate(150 50 50)"/><rect x="47.7" y="6" width="4.6" height="40" rx="2.3" transform="rotate(180 50 50)"/><rect x="47.7" y="12" width="4.6" height="30" rx="2.3" transform="rotate(210 50 50)"/><rect x="47.7" y="8" width="4.6" height="37" rx="2.3" transform="rotate(240 50 50)"/><rect x="47.7" y="11" width="4.6" height="32" rx="2.3" transform="rotate(270 50 50)"/><rect x="47.7" y="7" width="4.6" height="39" rx="2.3" transform="rotate(300 50 50)"/><rect x="47.7" y="13" width="4.6" height="28" rx="2.3" transform="rotate(330 50 50)"/>
+          </g></svg>
+        </span>
+        <span><strong>Construidas para Claude Opus 4.8</strong> — análisis multi-paso más preciso y mejor al señalar sus propias dudas.</span>
+      </div>
+      <div class="hero__cta">
+        <a href="#oferta" class="btn btn--primary">Quiero el kit de diagnóstico — 9,49€</a>
+        <a href="#value" class="btn btn--ghost">Ver las 15 skills</a>
+      </div>
+      <ul class="hero__bullets">
+        <li><span class="chk">✓</span> Funciona con MT4 y MT5</li>
+        <li><span class="chk">✓</span> No necesitas saber programar</li>
+        <li><span class="chk">✓</span> Pago único · acceso de por vida</li>
+      </ul>
+    </div>
+
+    <!-- Terminal: diagnóstico del overfitting_detector -->
+    <div class="hero__demo">
+      <div class="terminal">
+        <div class="terminal__bar">
+          <span class="dot dot--r"></span><span class="dot dot--y"></span><span class="dot dot--g"></span>
+          <span class="terminal__title">overfitting_detector</span>
+        </div>
+        <div class="terminal__body">
+          <p class="t-line"><span class="t-prompt">›</span> analizar backtest_EURUSD.htm</p>
+          <p class="t-line t-dim">  parsing 1.284 operaciones...</p>
+          <p class="t-line t-dim">  parámetros optimizados: 7</p>
+          <p class="t-line"><span class="t-warn">⚠ PBO 78%</span> — probabilidad de overfitting alta</p>
+          <p class="t-line"><span class="t-warn">⚠ Deflated Sharpe 0.31</span> — el edge no sobrevive al ajuste</p>
+          <p class="t-line t-dim">  sensibilidad: el 91% del retorno depende de 1 parámetro</p>
+          <p class="t-line"><span class="t-bad">VEREDICTO:</span> ruido, no edge.</p>
+          <p class="t-line t-cursor"><span class="t-prompt">›</span> <span class="blink">▌</span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 2. AGITACIÓN ============ -->
+<section class="band">
+  <div class="wrap narrow">
+    <h2 class="h2">Pasaste el backtest. Reventaste en real.</h2>
+    <p class="lead">
+      La equity curve subía limpia de izquierda a derecha. Sharpe bonito. Drawdown «controlado».
+      Lo pusiste en real y se deshizo en semanas.
+    </p>
+    <p class="lead">
+      No fue mala suerte. Fue una de estas tres, y nunca lo viste venir:
+    </p>
+    <div class="cards-3">
+      <div class="card">
+        <div class="card__k">01</div>
+        <h3>Curve-fitting</h3>
+        <p>Optimizaste hasta que la curva era perfecta. Ajustaste a ruido del pasado, no a una ventaja real.</p>
+      </div>
+      <div class="card">
+        <div class="card__k">02</div>
+        <h3>Look-ahead</h3>
+        <p>Tu lógica usaba información que en vivo aún no existía. El backtest «sabía» el futuro. Tú no.</p>
+      </div>
+      <div class="card">
+        <div class="card__k">03</div>
+        <h3>Un EA que nunca entendiste</h3>
+        <p>Compraste o copiaste un robot. Funcionaba… hasta que dejó de hacerlo y no sabías ni por qué.</p>
+      </div>
+    </div>
+    <p class="lead lead--center muted">
+      El problema no es que falle un sistema. Es que <strong>no tenías forma de saber por qué.</strong>
+    </p>
+  </div>
+</section>
+
+<!-- ============ 3. EL GIRO ============ -->
+<section class="band band--alt">
+  <div class="wrap narrow">
+    <div class="tag tag--center"><span class="tag__pulse"></span> el giro</div>
+    <h2 class="h2 h2--center">Un kit de diagnóstico que nadie más te da.</h2>
+    <p class="lead lead--center">
+      No es un curso. No son señales. No es otro EA «ganador».
+      Son <strong>15 skills de Claude</strong> que abren el capó de tu estrategia y te enseñan los números
+      que MetaTrader esconde y que tu broker prefiere que ignores.
+    </p>
+    <div class="vs-row">
+      <div class="vs vs--bad">
+        <h4>Lo que hacías antes</h4>
+        <ul>
+          <li>Mirar la equity curve y rezar.</li>
+          <li>Confiar en el Sharpe que te da MT.</li>
+          <li>Optimizar hasta que «cuadra».</li>
+          <li>No saber por qué murió el edge.</li>
+        </ul>
+      </div>
+      <div class="vs vs--good">
+        <h4>Con el pack</h4>
+        <ul>
+          <li>Medir overfitting con PBO y Deflated Sharpe.</li>
+          <li>Sacar Sortino, Calmar, expectancy y time-under-water.</li>
+          <li>Saber qué parámetros importan de verdad.</li>
+          <li>Detectar si tu edge se muere o solo es varianza.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 4. VALUE STACK ============ -->
+<section class="band" id="value">
+  <div class="wrap">
+    <div class="tag tag--center"><span class="tag__pulse"></span> qué hay dentro</div>
+    <h2 class="h2 h2--center">15 skills. 15 diagnósticos que hoy no puedes hacer.</h2>
+    <p class="lead lead--center muted">Cada skill es una herramienta de diagnóstico. Pegas tus datos, Claude trabaja, tú decides.</p>
+
+    <div class="stack">
+      <!-- 1 -->
+      <div class="skill">
+        <div class="skill__n">01</div>
+        <div class="skill__main">
+          <h3>Curve-Fit / Overfitting Detector</h3>
+          <p>Te dice si tu backtest es edge o ruido: PBO, Deflated Sharpe y sensibilidad de parámetros.</p>
+          <p class="skill__case">Caso: pegas 2 años de resultados y descubres que el 90% del retorno colgaba de un solo parámetro.</p>
+        </div>
+        <div class="skill__val">49€</div>
+      </div>
+      <!-- 2 -->
+      <div class="skill">
+        <div class="skill__n">02</div>
+        <div class="skill__main">
+          <h3>EA Logic Reconstructor</h3>
+          <p>Infiere las reglas de un EA a partir de su historial de operaciones.</p>
+          <p class="skill__case">Caso: heredas un robot sin documentación y reconstruyes su lógica de entrada/salida.</p>
+        </div>
+        <div class="skill__val">59€</div>
+      </div>
+      <!-- 3 -->
+      <div class="skill">
+        <div class="skill__n">03</div>
+        <div class="skill__main">
+          <h3>Advanced Backtest Report Analyzer (MT4/MT5)</h3>
+          <p>Saca Sortino, Calmar, expectancy y time-under-water del .htm que MetaTrader no te muestra.</p>
+          <p class="skill__case">Caso: el mismo informe de siempre, pero ahora ves cuánto tiempo estuviste bajo el agua.</p>
+        </div>
+        <div class="skill__val">49€</div>
+      </div>
+      <!-- 4 -->
+      <div class="skill">
+        <div class="skill__n">04</div>
+        <div class="skill__main">
+          <h3>MQL Auditor</h3>
+          <p>Caza bugs y riesgos en código MQL4/MQL5 antes de que lo descubra tu cuenta real.</p>
+          <p class="skill__case">Caso: detecta una gestión de lotes que se rompe tras la primera pérdida grande.</p>
+        </div>
+        <div class="skill__val">59€</div>
+      </div>
+      <!-- 5 -->
+      <div class="skill">
+        <div class="skill__n">05</div>
+        <div class="skill__main">
+          <h3>Monte Carlo Robustness</h3>
+          <p>Distribución de drawdowns para responder a una pregunta: ¿es suerte o es sistema?</p>
+          <p class="skill__case">Caso: ves el rango de drawdowns que el orden real de las operaciones te ocultaba.</p>
+        </div>
+        <div class="skill__val">49€</div>
+      </div>
+      <!-- 6 -->
+      <div class="skill">
+        <div class="skill__n">06</div>
+        <div class="skill__main">
+          <h3>Walk-Forward Analyzer</h3>
+          <p>Diseña e interpreta walk-forward analysis y su efficiency ratio.</p>
+          <p class="skill__case">Caso: separas el rendimiento «en muestra» del que de verdad aguanta fuera de muestra.</p>
+        </div>
+        <div class="skill__val">49€</div>
+      </div>
+      <!-- 7 -->
+      <div class="skill">
+        <div class="skill__n">07</div>
+        <div class="skill__main">
+          <h3>Look-Ahead / Data-Snooping Detector</h3>
+          <p>Caza sesgo de futuro y repainting en tu lógica.</p>
+          <p class="skill__case">Caso: descubres que un indicador repintaba y «acertaba» velas que aún no habían cerrado.</p>
+        </div>
+        <div class="skill__val">49€</div>
+      </div>
+      <!-- 8 -->
+      <div class="skill">
+        <div class="skill__n">08</div>
+        <div class="skill__main">
+          <h3>Strategy Deconstructor</h3>
+          <p>Descompone una estrategia en reglas, supuestos y los puntos exactos donde se rompe.</p>
+          <p class="skill__case">Caso: pones en una tabla cada supuesto oculto que tu estrategia da por hecho.</p>
+        </div>
+        <div class="skill__val">39€</div>
+      </div>
+      <!-- 9 -->
+      <div class="skill">
+        <div class="skill__n">09</div>
+        <div class="skill__main">
+          <h3>Optimization Search-Space Analyzer</h3>
+          <p>Qué parámetros importan de verdad y cuáles solo añaden ruido al ajuste.</p>
+          <p class="skill__case">Caso: pasas de optimizar 9 parámetros a los 2 que mueven el resultado.</p>
+        </div>
+        <div class="skill__val">39€</div>
+      </div>
+      <!-- 10 -->
+      <div class="skill">
+        <div class="skill__n">10</div>
+        <div class="skill__main">
+          <h3>MQL Skeleton Generator</h3>
+          <p>De una descripción en lenguaje natural a un esqueleto de EA listo para rellenar.</p>
+          <p class="skill__case">Caso: describes la idea y obtienes la estructura del EA sin partir de cero.</p>
+        </div>
+        <div class="skill__val">39€</div>
+      </div>
+      <!-- 11 -->
+      <div class="skill">
+        <div class="skill__n">11</div>
+        <div class="skill__main">
+          <h3>Tick Data Quality Auditor</h3>
+          <p>Modeling quality, gaps y spread: la calidad de los datos sobre los que confías.</p>
+          <p class="skill__case">Caso: descubres que tu 99% de modeling quality tenía huecos en las horas clave.</p>
+        </div>
+        <div class="skill__val">39€</div>
+      </div>
+      <!-- 12 -->
+      <div class="skill">
+        <div class="skill__n">12</div>
+        <div class="skill__main">
+          <h3>Multi-Strategy Correlation / Portfolio Combiner</h3>
+          <p>Mide la correlación real entre tus sistemas antes de combinarlos.</p>
+          <p class="skill__case">Caso: ves que tus tres «estrategias distintas» eran la misma apuesta disfrazada.</p>
+        </div>
+        <div class="skill__val">49€</div>
+      </div>
+      <!-- 13 -->
+      <div class="skill">
+        <div class="skill__n">13</div>
+        <div class="skill__main">
+          <h3>Edge Decay Monitor</h3>
+          <p>¿Tu ventaja se está muriendo o es solo varianza? Distingue una cosa de la otra.</p>
+          <p class="skill__case">Caso: detectas a tiempo que el rendimiento reciente cae fuera del rango esperable.</p>
+        </div>
+        <div class="skill__val">49€</div>
+      </div>
+      <!-- 14 -->
+      <div class="skill">
+        <div class="skill__n">14</div>
+        <div class="skill__main">
+          <h3>Regime Classifier</h3>
+          <p>Dónde vive tu edge y dónde se muere: clasifica el régimen de mercado.</p>
+          <p class="skill__case">Caso: confirmas que tu sistema solo funciona en tendencia y se rompe en rango.</p>
+        </div>
+        <div class="skill__val">49€</div>
+      </div>
+      <!-- 15 -->
+      <div class="skill">
+        <div class="skill__n">15</div>
+        <div class="skill__main">
+          <h3>Strategy Stress-Tester</h3>
+          <p>Mete fricción real a tu backtest —slippage variable, spread ensanchado, comisiones, latencia— y te dice cuánto de tu edge sobrevive a condiciones de ejecución reales.</p>
+          <p class="skill__case">Caso: tu sistema brilla en el tester pero el spread real se come el 70% del edge.</p>
+        </div>
+        <div class="skill__val">49€</div>
+      </div>
+    </div>
+
+    <!-- Reveal precio -->
+    <div class="reveal">
+      <div class="reveal__stack">
+        <span class="reveal__label">Valor total del stack</span>
+        <span class="reveal__strike">715€</span>
+      </div>
+      <div class="reveal__arrow">↓</div>
+      <div class="reveal__price">
+        <span class="reveal__plabel">Precio fundador</span>
+        <span class="reveal__big">9,49€</span>
+        <span class="reveal__note">pago único · acceso de por vida a las 15 skills</span>
+      </div>
+      <a href="#oferta" class="btn btn--primary btn--lg">Lo quiero a precio fundador →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PRUEBA SOCIAL — OCULTA ============ -->
+<!--
+  REACTIVAR cuando haya testimonios REALES sobre utilidad (tiempo ahorrado,
+  errores cazados, claridad), NUNCA sobre beneficios. Para reactivar:
+  descomenta este bloque y sustituye los huecos [ ... ] por testimonios reales.
+
+<section class="band">
+  <div class="wrap">
+    <div class="tag tag--center"><span class="tag__pulse"></span> lo que dicen</div>
+    <h2 class="h2 h2--center">Prueba social</h2>
+    <p class="lead lead--center muted">
+      Solo testimonios reales y verificables, sobre la <strong>utilidad de las herramientas</strong>.
+      Aquí no verás capturas de cuentas ni promesas de beneficios.
+    </p>
+    <div class="cards-3">
+      <figure class="quote">
+        <blockquote>«[TESTIMONIO REAL — p. ej. me cazó un look-ahead que llevaba meses sin ver.]»</blockquote>
+        <figcaption>— [Nombre real / handle] · [rol]</figcaption>
+      </figure>
+      <figure class="quote">
+        <blockquote>«[TESTIMONIO REAL — p. ej. el report analyzer me ahorró una tarde entera de Excel.]»</blockquote>
+        <figcaption>— [Nombre real / handle] · [rol]</figcaption>
+      </figure>
+      <figure class="quote">
+        <blockquote>«[TESTIMONIO REAL — sobre claridad, tiempo o errores. Nunca sobre beneficios.]»</blockquote>
+        <figcaption>— [Nombre real / handle] · [rol]</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+-->
+
+
+<!-- ============ 5. POR QUÉ OPUS 4.8 ============ -->
+<section class="band band--alt" id="opus">
+  <div class="wrap narrow">
+    <div class="opus">
+      <div class="opus__mark" aria-hidden="true">
+        <svg viewBox="0 0 100 100" fill="currentColor"><g>
+          <rect x="47.7" y="6" width="4.6" height="40" rx="2.3" transform="rotate(0 50 50)"/><rect x="47.7" y="12" width="4.6" height="30" rx="2.3" transform="rotate(30 50 50)"/><rect x="47.7" y="8" width="4.6" height="37" rx="2.3" transform="rotate(60 50 50)"/><rect x="47.7" y="11" width="4.6" height="32" rx="2.3" transform="rotate(90 50 50)"/><rect x="47.7" y="7" width="4.6" height="39" rx="2.3" transform="rotate(120 50 50)"/><rect x="47.7" y="13" width="4.6" height="28" rx="2.3" transform="rotate(150 50 50)"/><rect x="47.7" y="6" width="4.6" height="40" rx="2.3" transform="rotate(180 50 50)"/><rect x="47.7" y="12" width="4.6" height="30" rx="2.3" transform="rotate(210 50 50)"/><rect x="47.7" y="8" width="4.6" height="37" rx="2.3" transform="rotate(240 50 50)"/><rect x="47.7" y="11" width="4.6" height="32" rx="2.3" transform="rotate(270 50 50)"/><rect x="47.7" y="7" width="4.6" height="39" rx="2.3" transform="rotate(300 50 50)"/><rect x="47.7" y="13" width="4.6" height="28" rx="2.3" transform="rotate(330 50 50)"/>
+        </g></svg>
+      </div>
+      <div class="opus__body">
+        <span class="opus__kicker">Por qué Opus 4.8</span>
+        <h2 class="h2">Construidas para el modelo más capaz de Claude.</h2>
+        <p class="lead">
+          Opus 4.8 ejecuta el análisis cuantitativo multi-paso —parsear el informe, calcular las métricas,
+          cruzarlas y razonar el veredicto— con más fiabilidad que modelos anteriores. Es menos propenso a
+          afirmar cosas sin evidencia y mejor señalando sus propias dudas. Por eso el diagnóstico que sale
+          de estas skills es más de fiar: cada conclusión va atada a lo que dicen tus datos, no a una corazonada.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 6. OFERTA ============ -->
+<section class="band band--offer" id="oferta">
+  <div class="wrap">
+    <div class="tag tag--center"><span class="tag__pulse"></span> la oferta</div>
+    <h2 class="h2 h2--center">Todo el kit de diagnóstico. Precio fundador.</h2>
+
+    <div class="offer-grid">
+      <!-- Visual de producto -->
+      <figure class="offer-visual">
+        <img src="assets/quant-forensics-panel.png"
+             alt="Panel de diagnóstico forense de Quant Forensics: detección de overfitting sobre un backtest, con distribución de drawdowns y métricas PBO, DSR y OOS"
+             width="1248" height="1248" loading="lazy" decoding="async"
+             onerror="this.closest('.offer-visual').classList.add('is-empty')">
+        <figcaption class="offer-visual__fallback">Vista previa del panel de diagnóstico</figcaption>
+      </figure>
+
+      <div class="offer-box">
+      <div class="offer-box__head">
+        <span class="offer-box__name">Quant Forensics</span>
+        <span class="offer-box__tagline">15 skills de diagnóstico cuantitativo</span>
+      </div>
+
+      <ul class="recap">
+        <li>✓ Las 15 skills de Claude (lista completa arriba)</li>
+        <li>✓ Compatible con MT4 y MT5</li>
+        <li>✓ Sin programar: pegas tus datos, Claude trabaja</li>
+        <li>✓ Acceso de por vida · pago único</li>
+      </ul>
+
+      <div class="price-row">
+        <div>
+          <span class="price-row__label">Total hoy</span>
+          <span class="price-row__total" id="totalPrice">9,49€</span>
+        </div>
+        <div class="price-row__was">
+          <span class="price-row__label">Valor del stack</span>
+          <span class="price-row__strike">715€</span>
+        </div>
+      </div>
+
+      <a href="https://buy.stripe.com/eVq28r9LRfXY7gj58z9fW09" class="btn btn--primary btn--lg btn--block" id="checkoutBtn">
+        Comprar ahora — 9,49€ →
+      </a>
+      <p class="microcopy center">Pago seguro vía Stripe. El precio fundador es real y subirá cuando cerremos el grupo inicial.</p>
+      </div><!-- /offer-box -->
+    </div><!-- /offer-grid -->
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="band" id="faq">
+  <div class="wrap narrow">
+    <div class="tag tag--center"><span class="tag__pulse"></span> dudas frecuentes</div>
+    <h2 class="h2 h2--center">FAQ</h2>
+
+    <div class="faq">
+      <details class="faq__item">
+        <summary>¿Necesito saber programar?</summary>
+        <div class="faq__a">
+          No. La mayoría de skills funcionan pegando tu informe de MetaTrader o el historial de operaciones.
+          Las que tocan código (MQL Auditor, Skeleton Generator) te explican qué pasa en lenguaje claro;
+          no te exigen escribir MQL para entender el diagnóstico.
+        </div>
+      </details>
+      <details class="faq__item">
+        <summary>¿Funciona con MT4 y MT5?</summary>
+        <div class="faq__a">
+          Sí. El Report Analyzer lee el .htm de ambos, y el MQL Auditor trabaja con MQL4 y MQL5.
+        </div>
+      </details>
+      <details class="faq__item">
+        <summary>¿Esto da señales de trading?</summary>
+        <div class="faq__a">
+          No, y eso es lo bueno. Una señal te dice qué hacer sin enseñarte por qué; cuando deja de funcionar,
+          te quedas a ciegas. Este pack es lo contrario: herramientas de <strong>diagnóstico</strong> que te
+          enseñan a leer tus propios sistemas. El criterio se queda contigo, no en una señal que caduca.
+        </div>
+      </details>
+      <details class="faq__item">
+        <summary>¿Qué es una «skill» de Claude y cómo se usa?</summary>
+        <div class="faq__a">
+          Una skill es un conjunto de instrucciones especializadas que le das a Claude para que haga una tarea
+          concreta de forma consistente. La activas, le pegas tus datos (un informe, un historial, un trozo de
+          código) y Claude ejecuta ese diagnóstico paso a paso. Dentro del pack tienes las 15 listas para usar,
+          con sus instrucciones de instalación.
+        </div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 6. CTA FINAL ============ -->
+<section class="band band--final">
+  <div class="wrap narrow center">
+    <h2 class="h2 h2--center">Deja de mirar la equity curve y reza.<br><span class="accent">Empieza a diagnosticar.</span></h2>
+    <p class="lead lead--center muted">
+      15 skills. Precio fundador 9,49€. Pago único.
+      Las herramientas que te enseñan lo que MetaTrader esconde.
+    </p>
+    <a href="#oferta" class="btn btn--primary btn--lg">Quiero el kit de diagnóstico — 9,49€ →</a>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer__brand">
+      <span class="brand__dot"></span> Quant Forensics
+    </div>
+    <p class="disclaimer">
+      <strong>Aviso importante.</strong> Quant Forensics es un conjunto de herramientas educativas y de análisis.
+      No es asesoramiento financiero, de inversión ni de trading. No vendemos señales, no gestionamos capital
+      y no garantizamos ningún resultado. El trading con apalancamiento conlleva un riesgo elevado de pérdida.
+      Cualquier decisión que tomes es tuya y bajo tu responsabilidad. Las skills te ayudan a analizar tus
+      propios datos; no predicen el mercado ni aseguran rentabilidad alguna.
+    </p>
+    <div class="footer__legal">
+      <span>© <span id="year"></span> Quant Forensics. Todos los derechos reservados.</span>
+      <nav class="footer__nav">
+        <a href="{{LEGAL_TERMS_URL}}">Términos</a>
+        <a href="{{LEGAL_PRIVACY_URL}}">Privacidad</a>
+        <a href="mailto:{{CONTACT_EMAIL}}">Contacto</a>
+      </nav>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js" defer></script>
+</body>
+</html>
