@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /*?q=*
+Disallow: /*?s=*
+
+Sitemap: https://quantforensicsfx.com/sitemap.xml

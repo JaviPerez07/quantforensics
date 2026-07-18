@@ -203,6 +203,14 @@ strong{color:#fff;font-weight:600}
   text-align:center;font-family:var(--mono);font-size:13px;color:var(--txt-mute);
   max-width:620px;margin:6px auto 0;line-height:1.6;
 }
+/* etiqueta de grupo de agentes (por caso de uso) */
+.stack__group{
+  font-family:var(--mono);font-size:12px;letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--accent);margin:34px 0 4px;padding-left:2px;
+  display:flex;align-items:center;gap:10px;
+}
+.stack__group::before{content:"";width:10px;height:10px;border-radius:2px;background:var(--accent);box-shadow:0 0 8px var(--accent-glow)}
+.stack + .stack__group{margin-top:26px}
 .skill{
   /* móvil: número + contenido; el valor se apila debajo, discreto */
   display:grid;grid-template-columns:auto minmax(0,1fr);gap:6px 16px;align-items:start;
@@ -373,6 +381,12 @@ strong{color:#fff;font-weight:600}
   border:1px solid var(--line-2);border-left:2px solid var(--accent);border-radius:var(--r);
   background:var(--bg-3);padding:16px 18px;font-size:14px;color:var(--txt-mute);line-height:1.65;margin:24px 0;
 }
+
+/* ---------- AD SLOT (Monetag, inerte por defecto) ---------- */
+/* Contenedor reservado: oculto con [hidden]. Si algún día se activa (flag + zone id),
+   se muestra con dimensiones reservadas para no provocar layout shift. */
+.ad-slot{display:block;max-width:var(--maxw);margin:0 auto;padding:0 var(--pad-x)}
+.ad-slot:not([hidden]){min-height:100px;padding-top:24px;padding-bottom:24px}
 
 /* ---------- FOOTER ---------- */
 .footer{padding:50px 0 60px;background:var(--bg-2)}

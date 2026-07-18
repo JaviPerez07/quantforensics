@@ -1,0 +1,8 @@
+{
+  "name": "quant-forensics-landing",
+  "private": true,
+  "scripts": {
+    "lint": "node --check script.js && node --check tests/validate.mjs",
+    "test": "node tests/validate.mjs"
+  }
+}
