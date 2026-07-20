@@ -4,10 +4,18 @@
    No guardar secretos aquí (esto es público). Sin dependencias.
    ============================================================ */
 window.QF_CONFIG = Object.freeze({
-  /* Producto único: los 15 agentes forenses. */
+  /* CORE — los 15 agentes forenses (análisis manual por archivos). */
   CHECKOUT_URL: "https://buy.stripe.com/eVq28r9LRfXY7gj58z9fW09", // Stripe Payment Link (cobra 9,49€, confirmado)
   PRICE_DISPLAY: "9,49€",
   PRICE_CENTS: 949,
+
+  /* PRO — Core + MT5 Bridge Playbook (guía avanzada + kit). LANZAMIENTO con ENTREGA MANUAL.
+     Payment Link LIVE verificado (read-only): javiperezbuilds · "Core + MT5 Bridge Playbook"
+     · 24,99€ EUR · pago único · email obligatorio · sin suscripción/trial · != link del Core.
+     La entrega es MANUAL (no hay webhook ni descarga automática). */
+  PRO_CHECKOUT_URL: "https://buy.stripe.com/eVq9AT3nt9zAasv0Sj9fW0K",
+  PRO_PRICE_DISPLAY: "24,99€",
+  PRO_PRICE_CENTS: 2499,
 
   /* Monetag: desactivado por defecto. Solo se activa si ENABLED === true Y hay ZONE_ID.
      Reglas: sin popunder/push/interstitial, nunca en checkout, tras el contenido principal,
@@ -68,9 +76,40 @@ window.QF_CONFIG = Object.freeze({
     });
   }
 
+  /* ---- PRO (fail-closed): precio + checkout. Si no hay URL válida, el botón queda
+     deshabilitado con "Disponible tras validación" (nunca reutiliza el link de Core). ---- */
+  function hydratePro() {
+    document.querySelectorAll("[data-pro-price]").forEach(function (el) {
+      el.textContent = config.PRO_PRICE_DISPLAY;
+    });
+    var ok = validHttpsUrl(config.PRO_CHECKOUT_URL);
+    document.querySelectorAll("[data-pro-checkout]").forEach(function (link) {
+      if (ok) {
+        link.href = config.PRO_CHECKOUT_URL;
+        link.removeAttribute("aria-disabled");
+        link.removeAttribute("data-disabled");
+      } else {
+        // fail-closed: sin checkout no "empieza checkout"; el clic solo registra interés.
+        link.removeAttribute("href");
+        link.setAttribute("aria-disabled", "true");
+        link.setAttribute("data-disabled", "true");
+        link.removeAttribute("data-qf-event");
+      }
+    });
+    document.querySelectorAll("[data-pro-state]").forEach(function (el) {
+      el.textContent = ok
+        ? "Pago único y seguro con Stripe. Entrega manual en un máximo de 12 h al email de la compra."
+        : "Disponible en breve.";
+    });
+  }
+
   /* ---- eventos de analítica (sin PII) ---- */
   function setupTracking() {
-    window.QF_TRACK("quant_bundle_view");
+    if (document.body.hasAttribute("data-pack-selector")) {
+      window.QF_TRACK("view_pack_selector");
+    } else {
+      window.QF_TRACK("quant_bundle_view");
+    }
 
     // Llegada cross-site desde javiperezbuilds (?from=jpb) o por referrer.
     try {
@@ -99,6 +138,7 @@ window.QF_CONFIG = Object.freeze({
 
   hydratePrice();
   hydrateCheckout();
+  hydratePro();
   setupTracking();
   setupMonetag();
 })();
